@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Blog\Admin;
 
 use App\Http\Requests\BlogCategoryCreateRequest;
+use App\Http\Requests\BlogCategoryUpdateRequest;
 use App\Models\BlogCategory;
 
 class CategoryController extends BaseController
@@ -47,7 +48,6 @@ class CategoryController extends BaseController
         }
 
         $item = new BlogCategory($data);
-        dd($item);
         $item->save();
 
         if ($item instanceof BlogCategory) {
@@ -81,7 +81,7 @@ class CategoryController extends BaseController
     /**
      * Update the specified resource in storage.
      *
-     * @param  BlogCategoryUpdateRequest  $request
+     * @param  \App\Http\Requests\BlogCategoryUpdateRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
