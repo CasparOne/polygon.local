@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Blog;
 
 
-class BlogCategoryCreateRequest extends BlogCategoryBaseRequest
+use App\Http\Requests\BlogCategoryBaseRequest;
+
+class BlogCategoryUpdateRequest extends BlogCategoryBaseRequest
 {
     /**
      * Get the validation rules that apply to the request.

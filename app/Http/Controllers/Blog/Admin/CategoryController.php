@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Blog\Admin;
 
-use App\Http\Requests\BlogCategoryCreateRequest;
-use App\Http\Requests\BlogCategoryUpdateRequest;
+use App\Http\Requests\Blog\BlogCategoryCreateRequest;
+use App\Http\Requests\Blog\BlogCategoryUpdateRequest;
 use App\Models\BlogCategory;
 
 class CategoryController extends BaseController
@@ -37,7 +37,7 @@ class CategoryController extends BaseController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\Blog\BlogCategoryCreateRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(BlogCategoryCreateRequest $request)
@@ -52,7 +52,7 @@ class CategoryController extends BaseController
 
         if ($item instanceof BlogCategory) {
             return redirect()
-                ->route('blog.admin.categories.edit', $item->id)
+                ->route('blog.admin.categories.edit', [$item->id])
                 ->with(['success' => 'Успешно сохранено']);
         } else {
             return back()
@@ -81,7 +81,7 @@ class CategoryController extends BaseController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\BlogCategoryUpdateRequest  $request
+     * @param  \App\Http\Requests\Blog\BlogCategoryUpdateRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
