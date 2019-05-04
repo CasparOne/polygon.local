@@ -1,12 +1,33 @@
 <?php
 
-namespace App\Http\Controllers\Blog;
+namespace App\Http\Controllers\Blog\Admin;
 
-use App\Models\BlogPost;
 use Illuminate\Http\Request;
+use App\Repositories\BlogPostRepository;
 
+/**
+ * Manage blog articles
+ *
+ * Class PostController
+ * @package App\Http\Controllers\Blog\Admin
+ */
 class PostController extends BaseController
 {
+    /***
+     * @var
+     */
+    private $blogPostRepository;
+
+    /**
+     * PostController constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->blogPostRepository = app(BlogPostRepository::class);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,9 +35,9 @@ class PostController extends BaseController
      */
     public function index()
     {
-        $items = BlogPost::all();
+        $paginator = $this->blogPostRepository->getAllWithPaginate(23);
 
-        return view('blog.posts.index', compact('items'));
+        return view('blog.admin.posts.index', compact('paginator'));
     }
 
     /**
@@ -26,7 +47,7 @@ class PostController extends BaseController
      */
     public function create()
     {
-        //
+        dd(__METHOD__);
     }
 
     /**
@@ -37,19 +58,9 @@ class PostController extends BaseController
      */
     public function store(Request $request)
     {
-        //
+        dd(__METHOD__);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -59,7 +70,7 @@ class PostController extends BaseController
      */
     public function edit($id)
     {
-        //
+        dd(__METHOD__ . ' ' . $id);
     }
 
     /**
@@ -71,7 +82,7 @@ class PostController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        //
+        dd($request . ' ' . __METHOD__ . ' ' . $id);
     }
 
     /**
@@ -82,6 +93,6 @@ class PostController extends BaseController
      */
     public function destroy($id)
     {
-        //
+        dd(__METHOD__ . ' ' . $id);
     }
 }
