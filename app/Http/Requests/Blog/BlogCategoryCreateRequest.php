@@ -3,9 +3,9 @@
 namespace App\Http\Requests\Blog;
 
 
-use App\Http\Requests\BlogCategoryBaseRequest;
+use App\Http\Requests\BlogBaseRequest;
 
-class BlogCategoryCreateRequest extends BlogCategoryBaseRequest
+class BlogCategoryCreateRequest extends BlogBaseRequest
 {
     /**
      * Get the validation rules that apply to the request.
