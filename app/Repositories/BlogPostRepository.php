@@ -15,9 +15,9 @@ class BlogPostRepository extends CoreRepository
 {
 
     /**
-     * @return mixed
+     * @return string
      */
-    protected function getModelClass()
+    protected function getModelClass() : string
     {
         return Model::class;
     }
@@ -28,7 +28,7 @@ class BlogPostRepository extends CoreRepository
      * @param null $perPage
      * @return LengthAwarePaginator
      */
-    public function getAllWithPaginate($perPage = null)
+    public function getAllWithPaginate($perPage = null) : LengthAwarePaginator
     {
         $columns = [
             'id',
@@ -54,5 +54,16 @@ class BlogPostRepository extends CoreRepository
             ])
             ->paginate($perPage);
         return $result;
+    }
+
+    /**
+     * Retrieve model for editing
+     *
+     * @param $id
+     * @return Model
+     */
+    public function getEdit($id) : Model
+    {
+        return $this->startConditions()->find($id);
     }
 }
