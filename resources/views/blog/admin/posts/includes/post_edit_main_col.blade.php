@@ -11,16 +11,15 @@
                     Черновик
                 @endif
             </div>
-            <div class="card-bidy">
+            <div class="card-body">
                 <div class="card-title"></div>
                 <div class="card-subtitle mb-2 text-muted"></div>
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
-                        <a data-toggle="tab" href="#maindata" class="nav-link active" role="tab">Основные данные</a>
-
+                        <a class="nav-link active" data-toggle="tab" href="#maindata" role="tab">Основные данные</a>
                     </li>
                     <li class="nav-item">
-                        <a data-toggle="tab" href="#adddata" class="nav-link" role="tab">Доп данные</a>
+                        <a class="nav-link" data-toggle="tab" href="#adddata" role="tab">Доп данные</a>
                     </li>
                 </ul>
                 <br>
@@ -43,7 +42,7 @@
                                       rows="20">{{ old('content_raw', $item->content_raw) }}</textarea>
                         </div>
                     </div>
-                    <div class="tab-pane active" id="adddata" role="tabpanel">
+                    <div class="tab-pane" id="adddata" role="tabpanel">
                         <div class="form-group">
                             <label for="category_id">Категория</label>
                             <select name="category_id"
@@ -62,8 +61,8 @@
                         <div class="form-group">
                             <label for="slug">Идентификатор</label>
                             <input type="text" value="{{ $item->slug }}"
+                                   name="slug"
                                    id="slug"
-                                   type="text"
                                    class="form-control">
                         </div>
                         <div class="form-group">
