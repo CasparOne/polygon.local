@@ -32,21 +32,60 @@ class BlogPostObserver
      * @param BlogPost $blogPost
      * @return void
      */
-    protected function setSLug(BlogPost $blogPost)
+    protected function setSlug(BlogPost $blogPost)
     {
         if (empty($blogPost->slug)) {
             $blogPost->slug = Str::slug($blogPost->title);
         }
     }
 
-    public function creating(BlogPost $blogPost)
+    /**
+     * Set html from raw data
+     *
+     * @param BlogPost $blogPost
+     */
+    protected function setHtml(BlogPost $blogPost)
     {
+        if ($blogPost->isDirty('content_raw')) {
+            // TODO: There should be generation markdown->html
+            $blogPost->content_html = $blogPost->content_raw;
+        }
     }
 
+    /**
+     * Set article owner
+     *
+     * @param BlogPost $blogPost
+     */
+    protected function setUser(BlogPost $blogPost)
+    {
+        // TODO: Change it
+        $blogPost->user_id = auth()->id() ?? BlogPost::UNKNOWN_USER;
+    }
+
+    /**
+     * andle the blog post "creating" event.
+     *
+     * @param BlogPost $blogPost
+     */
+    public function creating(BlogPost $blogPost)
+    {
+        $this->setSlug($blogPost);
+        $this->setPublishedAt($blogPost);
+        $this->setHtml($blogPost);
+        $this->setUser($blogPost);
+
+    }
+
+    /**
+     * andle the blog post "updating" event.
+     *
+     * @param BlogPost $blogPost
+     */
     public function updating(BlogPost $blogPost)
     {
         $this->setPublishedAt($blogPost);
-        $this->setSLug($blogPost);
+        $this->setSlug($blogPost);
     }
 
     /**
