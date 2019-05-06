@@ -12,7 +12,7 @@
             <form method="POST" action="{{ route('blog.admin.posts.update', $item->id) }}">
                 @method('PATCH')
         @else
-            <form method="POST" action="{{ 'blog.admin.posts.store' }}">
+            <form method="POST" action="{{ route('blog.admin.posts.store') }}">
         @endif
 
             @csrf
