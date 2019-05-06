@@ -13,6 +13,7 @@ class BlogCategory extends Model
 {
     use SoftDeletes;
 
+    const ROOT = 1;
     /**
      * @var array
      */
@@ -23,4 +24,32 @@ class BlogCategory extends Model
             'parent_id',
             'description'
         ];
+
+    protected function isRoot()
+    {
+        return $this->id === BlogCategory::ROOT;
+    }
+
+    /**
+     * Retrieve parent category
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function parentCategory()
+    {
+        return $this->belongsTo(BlogCategory::class, 'parent_id', 'id');
+    }
+
+    public function getParentTitleAttribute()
+    {
+        $title = $this->parentCategory->title ?? (
+            $this->isRoot() ? 'Root'
+                : '????'
+            );
+
+        return $title;
+    }
+
+
+
 }
