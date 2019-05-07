@@ -25,10 +25,36 @@ class BlogCategory extends Model
             'description'
         ];
 
-    protected function isRoot()
+    /**
+     * Check is it root category
+     *
+     * @return bool
+     */
+    protected function isRoot() : bool
     {
         return $this->id === BlogCategory::ROOT;
     }
+
+//    /**
+//     * Example of usage Accessor
+//     *
+//     * @param $valueFromObject
+//     * @return bool|false|mixed|string|string[]|null
+//     */
+//    public function getTitleAttribute($valueFromObject)
+//    {
+//        return mb_strtoupper($valueFromObject);
+//    }
+//
+//    /**
+//     * Example of usage Mutator
+//     *
+//     * @param $incomingValue
+//     */
+//    public function setTitleAttribute($incomingValue)
+//    {
+//        $this->attributes['title'] = mb_strtolower($incomingValue);
+//    }
 
     /**
      * Retrieve parent category
@@ -40,6 +66,10 @@ class BlogCategory extends Model
         return $this->belongsTo(BlogCategory::class, 'parent_id', 'id');
     }
 
+    /**
+     * Accessor
+     * @return string
+     */
     public function getParentTitleAttribute()
     {
         $title = $this->parentCategory->title ?? (
