@@ -6,10 +6,7 @@ use App\Http\Requests\Blog\BlogPostCreateRequest;
 use App\Http\Requests\Blog\BlogPostUpdateRequest;
 use App\Models\BlogPost;
 use App\Repositories\BlogCategoryRepository;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 use App\Repositories\BlogPostRepository;
-use Illuminate\Support\Str;
 
 /**
  * Manages blog articles
@@ -88,7 +85,6 @@ class PostController extends BaseController
         }
     }
 
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -149,6 +145,25 @@ class PostController extends BaseController
      */
     public function destroy($id)
     {
-        dd(__METHOD__ . ' ' . $id);
+//        dd(__METHOD__, $id, request()->all());
+        // soft delete
+        $result = BlogPost::destroy($id);
+
+        // full delete
+        //$result = BlogPost::find($id)->forceDelete();
+
+        if ($result) {
+            return redirect()
+                ->route('blog.admin.posts.index')
+                ->with(['success' => 'Запись ' . $id . ' удалена']);
+        } else {
+            return back()
+                ->withErrors(['msg' => 'Ошибка удаления']);
+        }
+    }
+
+    public function restore($id)
+    {
+        // TODO: Implement this method
     }
 }

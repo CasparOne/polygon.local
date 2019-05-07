@@ -23,12 +23,9 @@ class BlogPostRepository extends CoreRepository
     }
 
     /**
-     * Retrieve list of articles for display as a list
-     *
-     * @param null $perPage
-     * @return LengthAwarePaginator
+     * @return mixed
      */
-    public function getAllWithPaginate($perPage = null) : LengthAwarePaginator
+    public function getAll()
     {
         $columns = [
             'id',
@@ -39,21 +36,34 @@ class BlogPostRepository extends CoreRepository
             'user_id',
             'category_id',
         ];
-
         $result = $this
             ->startConditions()
+            ->withTrashed()
             ->select($columns)
             ->orderBy('id', 'DESC')
 //            ->with(['category', 'user']) // Запрос избыточен. Ниже верный вариант через анонимную функцию
             ->with([
                 'category' => function($quey) {
 //                dd($query);
-                $quey->select(['id', 'title']); // Один варинат через анонимную функцию
+                    $quey->select(['id', 'title']); // Один варинат через анонимную функцию
                 },
                 'user:id,name', // Второй вариант короче.
-            ])
-            ->paginate($perPage);
+            ]);
         return $result;
+
+
+    }
+    /**
+     * Retrieve list of articles for display as a list
+     *
+     * @param null $perPage
+     * @return LengthAwarePaginator
+     */
+    public function getAllWithPaginate($perPage = null) : LengthAwarePaginator
+    {
+        return $this->getAll()
+                ->where('deleted_at', null)
+                ->paginate($perPage);
     }
 
     /**
@@ -62,8 +72,17 @@ class BlogPostRepository extends CoreRepository
      * @param $id
      * @return Model
      */
-    public function getEdit($id) : Model
+    public function getEdit($id)
     {
-        return $this->startConditions()->find($id);
+        $result =  $this->startConditions()
+            ->find($id);
+
+        return $result;
+    }
+
+    public function getDeletedPost()
+    {
+        $result = $this->startConditions()
+            ->find($id);
     }
 }
