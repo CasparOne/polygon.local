@@ -62,7 +62,7 @@ class BlogPostRepository extends CoreRepository
     public function getAllWithPaginate($perPage = null) : LengthAwarePaginator
     {
         return $this->getAll()
-                ->where('deleted_at', null)
+                ->withoutTrashed()
                 ->paginate($perPage);
     }
 
@@ -75,14 +75,8 @@ class BlogPostRepository extends CoreRepository
     public function getEdit($id)
     {
         $result =  $this->startConditions()
+            ->withTrashed()
             ->find($id);
-
         return $result;
-    }
-
-    public function getDeletedPost()
-    {
-        $result = $this->startConditions()
-            ->find($id);
     }
 }
