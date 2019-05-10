@@ -17,6 +17,13 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::group(['prefix' => 'digging_dipper',], function () {
+    Route::get('collections', 'DiggingDipperController@collections')
+        ->name('digging_dipper.collections');
+});
+
+
+
 Route::group([
     'namespace' => 'Blog',
     'prefix' => 'blog'

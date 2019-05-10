@@ -145,6 +145,8 @@ class PostController extends BaseController
      */
     public function destroy($id)
     {
+        // TODO: Create logic to change deleting record's field 'is_published' as a null
+
         // soft delete
         $result = BlogPost::destroy($id);
 
