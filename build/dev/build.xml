@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="polygon.local" basedir="." default="build">
+
+    <target name="build" depends="vars, copy, composer, symlink"/>
+
+    <target name="vars">
+        <echo msg="Hello world!"/>
+    </target>
+
+    <target name="copy">
+    </target>
+
+    <target name="composer">
+    </target>
+
+    <target name="symlink">
+    </target>
+
+</project>

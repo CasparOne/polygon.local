@@ -15,6 +15,7 @@
         "irazasyed/telegram-bot-sdk": "^2.0"
     },
     "require-dev": {
+        "phing/phing": "3.*",
         "barryvdh/laravel-debugbar": "^3.2",
         "barryvdh/laravel-ide-helper": "^2.6",
         "beyondcode/laravel-dump-server": "^1.0",
